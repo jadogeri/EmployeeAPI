@@ -1,0 +1,52 @@
+[build-system]
+# Use setuptools for standard pip usage or change to "hatchling" or "flit" if using those
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "my_project_name"
+version = "0.1.0"
+description = "A short description of my awesome project"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+authors = [
+  {name = "Your Name", email = "your.email@example.com"},
+]
+keywords = ["python", "app", "sample"]
+
+# Main requirements (replacing requirements.txt)
+dependencies = [
+    "requests>=2.31.0",
+    "pandas",
+]
+
+[project.optional-dependencies]
+# Extra packages for developers
+dev = [
+    "pytest",
+    "black",
+    "ruff",
+]
+
+[project.urls]
+# Links shown on PyPI
+Homepage = "https://github.com"
+Issues = "https://github.com/issues"
+
+[project.scripts]
+# This makes your app runnable via command line: 'run-my-app'
+run-my-app = "my_package.main:run"
+
+[tool.pytest.ini_options]
+# Configuration for running tests
+testpaths = ["tests"]
+python_files = "test_*.py"
+
+[tool.black]
+# Configuration for the Black code formatter
+line-length = 88
+
+[tool.setuptools.packages.find]
+# Tell it to look inside the 'app' directory for your code
+where = ["app"]

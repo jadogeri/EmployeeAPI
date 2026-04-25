@@ -1,0 +1,58 @@
+# --- ONE-TIME SETUP ---
+# Create the environment
+python -m venv .venv
+
+# Activate (Windows)
+.venv\Scripts\activate
+
+# Activate (Mac/Linux)
+source .venv/bin/activate
+
+=========================================
+1. STANDARD PIP (Manual editing)
+=========================================
+# Install current project & dependencies
+pip install .
+
+# Install in 'Editable' mode (live code changes)
+pip install -e .
+
+# Install optional groups (e.g., [project.optional-dependencies] dev = [...])
+pip install -e ".[dev]"
+
+# Check if pyproject.toml is valid
+pip install validate-pyproject
+validate-pyproject pyproject.toml
+
+=========================================
+2. UV (Fastest - Auto-updates your TOML)
+=========================================
+# Initialize a new project/TOML
+uv init
+
+# Add a package (Adds to [project.dependencies] automatically)
+uv add requests
+
+# Add a dev package (Adds to [dependency-groups] automatically)
+uv add --dev pytest
+
+# Remove a package
+uv remove requests
+
+# Run a script defined in [project.scripts]
+uv run <script-name>
+
+=========================================
+3. POETRY (Full Package Management)
+=========================================
+# Add a package
+poetry add flask
+
+# Add a dev package
+poetry add pytest --group dev
+
+# Install everything in the TOML
+poetry install
+
+# Update all packages to latest versions
+poetry update
