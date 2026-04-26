@@ -1,0 +1,31 @@
+from typing import List, Optional
+
+from application.controllers.interfaces.employee_controller_interface import IEmployeeController
+from application.services.interfaces.employee_service_interface import IEmployeeService
+from domain.entities.employee import Employee
+from api.dtos.employee_dto import EmployeeCreate, EmployeeUpdate
+
+class EmployeeController(IEmployeeController):
+    def __init__(self, service: IEmployeeService):
+        self.service = service
+
+    def get_all_employees(self) -> List[Employee]:
+        return self.service.get_all_employees()
+
+    def get_employee_by_id(self, emp_id: int) -> Optional[Employee]:
+        return self.service.get_by_id(emp_id)
+
+    def find_employee_by_email(self, email: str) -> Optional[Employee]:
+        return self.service.find_by_email(email)
+
+    def delete_employee_by_id(self, emp_id: int) -> bool:
+        return self.service.delete(emp_id)
+
+    def create_employee(self, employee: EmployeeCreate) -> Employee:
+        return self.service.create(employee)
+
+    def update_employee(self, emp_id: int, employee: EmployeeUpdate) -> Employee:
+        return self.service.update(emp_id, employee)
+
+    def find_active_employees(self) -> List[Employee]:
+        return self.service.get_active()

@@ -3,12 +3,10 @@ from typing import List, Optional
 
 from sqlalchemy import Boolean
 
-from api.dtos.employee_dto import EmployeeUpdate, EmployeeCreate
+from api.dtos.employee_dto import EmployeeCreate, EmployeeUpdate
 from domain.entities.employee import Employee
-from models.employee_model import EmployeeModel
 
-
-class IEmployeeService(ABC):
+class IEmployeeController(ABC):
     """
     Interface defining business logic operations for Employees.
     """
