@@ -11,11 +11,11 @@ class IEmployeeRepository(BaseRepository[EmployeeModel], ABC):
     """
 
     @abstractmethod
-    def find_by_name(self, name: str) -> Optional[EmployeeModel]:
+    def find_by_email(self, email: str) -> Optional[EmployeeModel]:
         """Specific query to find an employee by name."""
         pass
 
     @abstractmethod
-    def get_by_roles(self) -> List[EmployeeModel]:
+    def get_all_active(self) -> List[EmployeeModel]:
         """Specific query to find active employees by roles."""
         pass

@@ -22,13 +22,13 @@ class EmployeeRepository(IEmployeeRepository):
         """
         super().__init__(EmployeeModel)
 
-    def find_by_name(self, name: str) -> EmployeeModel | None:
+    def find_by_email(self, name: str) -> EmployeeModel | None:
         """
         Uses the inherited self.query property from BaseRepository.
         """
         return self.query.filter_by(name=name).first()
 
-    def get_by_roles(self) -> list[EmployeeModel]:
+    def get_all_active(self) -> list[EmployeeModel]:
         """
         Uses the inherited self.query property to filter active records.
         """
