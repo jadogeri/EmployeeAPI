@@ -6,3 +6,4 @@ class Base(DeclarativeBase):
 
 # You MUST pass model_class=Base here
 db: SQLAlchemy = SQLAlchemy(model_class=Base)
+
