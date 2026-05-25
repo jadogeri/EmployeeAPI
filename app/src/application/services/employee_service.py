@@ -1,16 +1,11 @@
 from __future__ import annotations
-
-from abc import ABC
 from typing import List, Optional
-
-from sqlalchemy import Boolean
 
 from application.services.interfaces.employee_service_interface import IEmployeeService
 from domain.entities.employee import Employee
 from infrastructure.mappers.employee_mapper import EmployeeMapper
 from infrastructure.repositories.interfaces.employee_repository_interface import IEmployeeRepository
 from models.employee_model import EmployeeModel
-
 
 
 class EmployeeService(IEmployeeService):
@@ -34,14 +29,14 @@ class EmployeeService(IEmployeeService):
             return  None
 
     def find_employee_by_email(self, email: str) -> Optional[Employee]:
-        employee_model : EmployeeModel = self.repository.find_by_email(email)
+        employee_model : EmployeeModel | None = self.repository.find_by_email(email)
         if employee_model:
             employee: Employee = EmployeeMapper.to_entity(employee_model)
             return employee.__dict__()
         else:
             return  None
 
-    def delete_employee_by_id(self, emp_idl: str) -> Optional[bool]:
+    def delete_employee_by_id(self, emp_id: int) -> Optional[bool]:
         is_deleted : bool = self.repository.delete(emp_idl)
         return is_deleted if is_deleted or not is_deleted else None
 
@@ -53,7 +48,7 @@ class EmployeeService(IEmployeeService):
         else:
             return  None
 
-    def update_employee(self, emp_id: str, employee: EmployeeModel) -> EmployeeModel:
+    def update_employee(self, emp_id: int, employee: EmployeeModel) -> EmployeeModel:
         """Update an existing employee with given details."""
         pass
 

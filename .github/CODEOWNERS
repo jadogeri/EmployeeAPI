@@ -1,0 +1,33 @@
+# CODEOWNERS
+#
+# Each line is a file pattern followed by one or more owners.
+# Owners are automatically requested for review when someone opens
+# a pull request that modifies matching files.
+#
+# More info: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Global fallback — Joseph Adogeri owns everything by default
+*                           @jadogeri
+
+# Core application entry point
+app/main.py                 @jadogeri
+
+# Domain layer
+app/src/domain/             @jadogeri
+
+# Application layer (services, controllers)
+app/src/application/        @jadogeri
+
+# Infrastructure layer (DB, repositories, mappers)
+app/src/infrastructure/     @jadogeri
+
+# API contracts (DTOs)
+app/src/api/                @jadogeri
+
+# CI/CD configuration
+.github/workflows/          @jadogeri
+
+# Documentation
+README.md                   @jadogeri
+CHANGELOG.md                @jadogeri
+CONTRIBUTING.md             @jadogeri

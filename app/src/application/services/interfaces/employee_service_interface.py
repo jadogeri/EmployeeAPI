@@ -29,7 +29,7 @@ class IEmployeeService(ABC):
         pass
 
     @abstractmethod
-    def delete_employee_by_id(self, emp_idl: str) -> Optional[Boolean]:
+    def delete_employee_by_id(self, emp_id: int) -> Optional[bool]:
         """Find a specific employee by their name."""
         pass
 
@@ -39,7 +39,7 @@ class IEmployeeService(ABC):
         pass
 
     @abstractmethod
-    def update_employee(self, emp_id: str, employee: EmployeeUpdate) -> Employee:
+    def update_employee(self, emp_id: int, employee: EmployeeUpdate) -> Employee:
         """Update an existing employee with given details."""
         pass
 

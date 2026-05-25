@@ -13,19 +13,19 @@ class EmployeeController(IEmployeeController):
         return self.service.get_all_employees()
 
     def get_employee_by_id(self, emp_id: int) -> Optional[Employee]:
-        return self.service.get_by_id(emp_id)
+        return self.service.get_employee_by_id(emp_id)
 
     def find_employee_by_email(self, email: str) -> Optional[Employee]:
-        return self.service.find_by_email(email)
+        return self.service.find_employee_by_email(email)
 
-    def delete_employee_by_id(self, emp_id: int) -> bool:
-        return self.service.delete(emp_id)
+    def delete_employee_by_id(self, emp_id: int) -> bool | None:
+        return self.service.delete_employee_by_id(emp_id)
 
     def create_employee(self, employee: EmployeeCreate) -> Employee:
-        return self.service.create(employee)
+        return self.service.create_employee(employee)
 
     def update_employee(self, emp_id: int, employee: EmployeeUpdate) -> Employee:
-        return self.service.update(emp_id, employee)
+        return self.service.update_employee(emp_id, employee)
 
     def find_active_employees(self) -> List[Employee]:
-        return self.service.get_active()
+        return self.service.find_active_employees()

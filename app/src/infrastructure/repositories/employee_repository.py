@@ -12,15 +12,19 @@ License: MIT
 """
 from __future__ import annotations
 
+from sqlalchemy.orm import Session
+
 from infrastructure.repositories.interfaces.employee_repository_interface import IEmployeeRepository
 from models.employee_model import EmployeeModel
 
 class EmployeeRepository(IEmployeeRepository):
-    def __init__(self):
+    def __init__(self, session: Session):  # Accept the session argument
         """
-        Initializes the EmployeeRepository with the Employee model.
+        Initializes the EmployeeRepository with the Employee model and DB session.
         """
-        super().__init__(EmployeeModel)
+        # Pass both the model and the session to the BaseRepository
+        super().__init__(model=EmployeeModel, session=session)
+
 
     def find_by_email(self, name: str) -> EmployeeModel | None:
         """
