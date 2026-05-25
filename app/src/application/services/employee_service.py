@@ -17,14 +17,16 @@ class EmployeeService(IEmployeeService):
         employee_models: list[EmployeeModel] = self.repository.get_all()
         for employee_model in employee_models:
             employee: Employee = EmployeeMapper.to_entity(employee_model)
-            employees.append(employee.__dict__())
+            # Fixed: Changed __dict__() to vars() or .__dict__
+            employees.append(vars(employee))
         return employees
 
     def get_employee_by_id(self, emp_id: int) -> Optional[Employee]:
         employee_model : EmployeeModel | None = self.repository.get_one(emp_id)
         if employee_model:
             employee: Employee = EmployeeMapper.to_entity(employee_model)
-            return employee.__dict__()
+            # Fixed: Changed __dict__() to vars()
+            return vars(employee)
         else:
             return  None
 
@@ -32,35 +34,35 @@ class EmployeeService(IEmployeeService):
         employee_model : EmployeeModel | None = self.repository.find_by_email(email)
         if employee_model:
             employee: Employee = EmployeeMapper.to_entity(employee_model)
-            return employee.__dict__()
+            # Fixed: Changed __dict__() to vars()
+            return vars(employee)
         else:
             return  None
 
     def delete_employee_by_id(self, emp_id: int) -> Optional[bool]:
-        is_deleted : bool = self.repository.delete(emp_idl)
-        return is_deleted if is_deleted or not is_deleted else None
+        is_deleted : bool = self.repository.delete(emp_id)
+        return is_deleted
 
     def create_employee(self, employee: EmployeeModel) -> Employee | None:
         employee_model : EmployeeModel= self.repository.save(employee)
         if employee_model:
             employee: Employee = EmployeeMapper.to_entity(employee_model)
-            return employee.__dict__()
+            # Fixed: Changed __dict__() to vars()
+            return vars(employee)
         else:
             return  None
 
-    def update_employee(self, emp_id: int, employee: EmployeeModel) -> EmployeeModel:
+    def update_employee(self, emp_id: int, employee: EmployeeModel) -> EmployeeModel | None:
         """Update an existing employee with given details."""
-        pass
+        # Added: Implementation to update via repository layer
+        updated_model: EmployeeModel | None = self.repository.update(emp_id, employee)
+        return updated_model
 
     def find_active_employees(self) -> List[Employee]:
         active_employees: list[Employee] = []
         all_employee_models : list[EmployeeModel]= self.repository.get_all_active()
         for employee_model in all_employee_models:
             employee: Employee = EmployeeMapper.to_entity(employee_model)
-            active_employees.append(employee.__dict__())
+            # Fixed: Changed __dict__() to vars()
+            active_employees.append(vars(employee))
         return active_employees
-
-
-
-
-
