@@ -133,17 +133,20 @@ def test_create_employee(
     mock_repository.save.assert_called_once_with(sample_employee_model)
 
 
-def test_update_employee(employee_service, mock_repository, sample_employee_model):
-    # Arrange: Change 'update' to whatever method your IEmployeeRepository interface uses (e.g., save)
-    mock_repository.save.return_value = sample_employee_model
+def test_update_employee(
+    employee_service, mock_repository, sample_employee_model, mock_mapper_to_entity
+):
+    # Arrange: 1. Inject mock_mapper_to_entity fixture 
+    #          2. Mock the actual '.update' repository method called by your service
+    mock_repository.update.return_value = sample_employee_model
 
     # Act
     result = employee_service.update_employee(1, sample_employee_model)
 
-    # Assert
-    assert result == sample_employee_model
-    mock_repository.save.assert_called_once_with(sample_employee_model)
-
+    # Assert: Verify it returns the mapped dictionary format instead of the raw object
+    assert result is not None
+    assert result["name"] == "John Doe"
+    mock_repository.update.assert_called_once_with(1, sample_employee_model)
 
 
 def test_find_active_employees(
