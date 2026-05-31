@@ -1,20 +1,25 @@
 from fastapi import APIRouter, Depends, status, HTTPException
-from fastapi_restful.cbv import cbv # You will need to: pip install fastapi-restful
+from fastapi_restful.cbv import cbv  # You will need to: pip install fastapi-restful
 from dependency_injector.wiring import inject, Provide
 from typing import List
 
-from application.controllers.interfaces.employee_controller_interface import IEmployeeController
+from application.controllers.interfaces.employee_controller_interface import (
+    IEmployeeController,
+)
 from api.dtos.employee_dto import EmployeeCreate, EmployeeUpdate, EmployeeRead
 from container import Container
 
 router = APIRouter(prefix="/employees", tags=["Employees"])
 
-@cbv(router) # Use cbv instead of View
+
+@cbv(router)  # Use cbv instead of View
 class EmployeeView:
     @inject
     def __init__(
         self,
-        controller: IEmployeeController = Depends(Provide[Container.employee_controller])
+        controller: IEmployeeController = Depends(
+            Provide[Container.employee_controller]
+        ),
     ):
         self.controller = controller
 
@@ -22,7 +27,9 @@ class EmployeeView:
     async def get_all(self):
         return self.controller.get_all_employees()
 
-    @router.get("/active", status_code=status.HTTP_200_OK, response_model=List[EmployeeRead])
+    @router.get(
+        "/active", status_code=status.HTTP_200_OK, response_model=List[EmployeeRead]
+    )
     async def get_active(self):
         return self.controller.find_active_employees()
 
@@ -33,7 +40,9 @@ class EmployeeView:
             raise HTTPException(status_code=404, detail="Employee not found")
         return employee
 
-    @router.get("/search/{email}", status_code=status.HTTP_200_OK, response_model=EmployeeRead)
+    @router.get(
+        "/search/{email}", status_code=status.HTTP_200_OK, response_model=EmployeeRead
+    )
     async def search_by_email(self, email: str):
         employee = self.controller.find_employee_by_email(email)
         if not employee:

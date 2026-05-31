@@ -1,9 +1,12 @@
 from typing import List, Optional
 
-from application.controllers.interfaces.employee_controller_interface import IEmployeeController
+from application.controllers.interfaces.employee_controller_interface import (
+    IEmployeeController,
+)
 from application.services.interfaces.employee_service_interface import IEmployeeService
 from domain.entities.employee import Employee
 from api.dtos.employee_dto import EmployeeCreate, EmployeeUpdate
+
 
 class EmployeeController(IEmployeeController):
     def __init__(self, service: IEmployeeService):

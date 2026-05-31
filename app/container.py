@@ -12,10 +12,13 @@ DATABASE_URL = "sqlite:///./employee.db"  # Update with your actual connection s
 engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
+
 class Container(containers.DeclarativeContainer):
-    wiring_config = containers.WiringConfiguration(modules=[
-        "src.api.views.employee_views",
-    ])
+    wiring_config = containers.WiringConfiguration(
+        modules=[
+            "src.api.views.employee_views",
+        ]
+    )
 
     # 1. DATABASE SESSION PROVIDER
     # This provides a new session instance for each request
@@ -25,19 +28,14 @@ class Container(containers.DeclarativeContainer):
 
     # 2. REPOSITORY PROVIDER
     # Pass the session explicitly to the repository
-    employee_repository = providers.Factory(
-        EmployeeRepository,
-        session=db_session
-    )
+    employee_repository = providers.Factory(EmployeeRepository, session=db_session)
 
     # 3. SERVICE PROVIDER
     employee_service = providers.Factory(
-        EmployeeService,
-        repository=employee_repository
+        EmployeeService, repository=employee_repository
     )
 
     # 4. CONTROLLER PROVIDER
     employee_controller = providers.Factory(
-        EmployeeController,
-        service=employee_service
+        EmployeeController, service=employee_service
     )

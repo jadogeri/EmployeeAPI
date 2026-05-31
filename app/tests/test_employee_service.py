@@ -7,7 +7,9 @@ from application.services.employee_service import EmployeeService
 # Fixed: Removed the 'app.' prefix from all structural imports below
 from domain.entities.employee import Employee
 from models.employee_model import EmployeeModel
-from infrastructure.repositories.interfaces.employee_repository_interface import IEmployeeRepository
+from infrastructure.repositories.interfaces.employee_repository_interface import (
+    IEmployeeRepository,
+)
 from infrastructure.mappers.employee_mapper import EmployeeMapper
 
 
@@ -36,12 +38,14 @@ def mock_mapper_to_entity(monkeypatch):
     dummy_entity = MagicMock(spec=Employee)
     # Vars/dict behavior simulation
     dummy_entity.__dict__ = {"id": 1, "name": "John Doe", "email": "john@example.com"}
-    
+
     monkeypatch.setattr(EmployeeMapper, "to_entity", lambda model: dummy_entity)
     return dummy_entity
 
 
-def test_get_all_employees(employee_service, mock_repository, sample_employee_model, mock_mapper_to_entity):
+def test_get_all_employees(
+    employee_service, mock_repository, sample_employee_model, mock_mapper_to_entity
+):
     # Arrange
     mock_repository.get_all.return_value = [sample_employee_model]
 
@@ -54,7 +58,9 @@ def test_get_all_employees(employee_service, mock_repository, sample_employee_mo
     mock_repository.get_all.assert_called_once()
 
 
-def test_get_employee_by_id_found(employee_service, mock_repository, sample_employee_model, mock_mapper_to_entity):
+def test_get_employee_by_id_found(
+    employee_service, mock_repository, sample_employee_model, mock_mapper_to_entity
+):
     # Arrange
     mock_repository.get_one.return_value = sample_employee_model
 
@@ -79,7 +85,9 @@ def test_get_employee_by_id_not_found(employee_service, mock_repository):
     mock_repository.get_one.assert_called_once_with(999)
 
 
-def test_find_employee_by_email_found(employee_service, mock_repository, sample_employee_model, mock_mapper_to_entity):
+def test_find_employee_by_email_found(
+    employee_service, mock_repository, sample_employee_model, mock_mapper_to_entity
+):
     # Arrange
     mock_repository.find_by_email.return_value = sample_employee_model
 
@@ -104,7 +112,9 @@ def test_delete_employee_by_id(employee_service, mock_repository):
     mock_repository.delete.assert_called_once_with(1)
 
 
-def test_create_employee(employee_service, mock_repository, sample_employee_model, mock_mapper_to_entity):
+def test_create_employee(
+    employee_service, mock_repository, sample_employee_model, mock_mapper_to_entity
+):
     # Arrange
     mock_repository.save.return_value = sample_employee_model
 
@@ -129,7 +139,9 @@ def test_update_employee(employee_service, mock_repository, sample_employee_mode
     mock_repository.update.assert_called_once_with(1, sample_employee_model)
 
 
-def test_find_active_employees(employee_service, mock_repository, sample_employee_model, mock_mapper_to_entity):
+def test_find_active_employees(
+    employee_service, mock_repository, sample_employee_model, mock_mapper_to_entity
+):
     # Arrange
     mock_repository.get_all_active.return_value = [sample_employee_model]
 

@@ -11,5 +11,5 @@ class EmployeeMapper:
             last_name=db_model.last_name,
             email=db_model.email,
             role=db_model.role,
-            is_active=db_model.is_active
+            is_active=db_model.is_active,
         )

@@ -2,7 +2,8 @@ from __future__ import annotations
 from typing import TypeVar, Generic, List, Optional, Type
 from sqlalchemy.orm import Session  # Import standard Session
 
-T = TypeVar('T')
+T = TypeVar("T")
+
 
 class BaseRepository(Generic[T]):
     def __init__(self, session: Session, model: Type[T]):

@@ -8,6 +8,7 @@ class EmployeeBase(BaseModel):
     last_name: str = Field(..., min_length=2, max_length=40)
     email: EmailStr
 
+
 # --- CREATE: Used for POST (Fields are mandatory) ---
 class EmployeeCreate(EmployeeBase):
     password: str = Field(..., min_length=8)

@@ -9,6 +9,7 @@ Since: 2026-04-25
 File: employee_model.py
 License: MIT
 """
+
 from __future__ import annotations
 from infrastructure.database import db
 from sqlalchemy.orm import Mapped, mapped_column
@@ -25,7 +26,5 @@ class EmployeeModel(db.Model):
     role: Mapped[str] = mapped_column(String(20), nullable=True)
     is_active: Mapped[bool] = mapped_column(Boolean, nullable=True)
 
-
     def __repr__(self) -> str:
         return f"<UserModel {self.first_name} {self.last_name}>"
-

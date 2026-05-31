@@ -4,6 +4,7 @@ from typing import List, Optional
 from infrastructure.repositories.interfaces.base_repository import BaseRepository
 from models.employee_model import EmployeeModel
 
+
 class IEmployeeRepository(BaseRepository[EmployeeModel], ABC):
     """
     Interface for Employee Repository.

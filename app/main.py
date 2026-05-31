@@ -29,7 +29,7 @@ def create_app() -> FastAPI:
     app = FastAPI(
         title="Employee Management System",
         description="Clean Architecture with FastAPI, Dependency Injector, and SQLAlchemy",
-        version="1.0.0"
+        version="1.0.0",
     )
 
     # 3. Include the routers

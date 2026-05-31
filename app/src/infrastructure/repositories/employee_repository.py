@@ -10,12 +10,16 @@ Since: 2024-05-20
 File: employee_repository.py
 License: MIT
 """
+
 from __future__ import annotations
 
 from sqlalchemy.orm import Session
 
-from infrastructure.repositories.interfaces.employee_repository_interface import IEmployeeRepository
+from infrastructure.repositories.interfaces.employee_repository_interface import (
+    IEmployeeRepository,
+)
 from models.employee_model import EmployeeModel
+
 
 class EmployeeRepository(IEmployeeRepository):
     def __init__(self, session: Session):  # Accept the session argument
@@ -24,7 +28,6 @@ class EmployeeRepository(IEmployeeRepository):
         """
         # Pass both the model and the session to the BaseRepository
         super().__init__(model=EmployeeModel, session=session)
-
 
     def find_by_email(self, name: str) -> EmployeeModel | None:
         """

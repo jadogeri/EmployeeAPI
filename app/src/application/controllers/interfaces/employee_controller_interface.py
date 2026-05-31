@@ -6,6 +6,7 @@ from sqlalchemy import Boolean
 from api.dtos.employee_dto import EmployeeCreate, EmployeeUpdate
 from domain.entities.employee import Employee
 
+
 class IEmployeeController(ABC):
     """
     Interface defining business logic operations for Employees.
