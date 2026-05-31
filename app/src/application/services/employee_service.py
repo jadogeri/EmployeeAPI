@@ -56,11 +56,14 @@ class EmployeeService(IEmployeeService):
 
     def update_employee(
         self, emp_id: int, employee: EmployeeModel
-    ) -> EmployeeModel | None:
+    ) -> Optional[Employee]:  # 👈 Changed return type hint to match output structure
         """Update an existing employee with given details."""
-        # Added: Implementation to update via repository layer
         updated_model: EmployeeModel | None = self.repository.update(emp_id, employee)
-        return updated_model
+        if updated_model:
+            # Fixed: Properly map the database object back to a clean domain dictionary
+            employee_entity: Employee = EmployeeMapper.to_entity(updated_model)
+            return vars(employee_entity)
+        return None
 
     def find_active_employees(self) -> List[Employee]:
         active_employees: list[Employee] = []

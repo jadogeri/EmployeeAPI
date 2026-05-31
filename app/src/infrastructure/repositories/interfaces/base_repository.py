@@ -34,3 +34,20 @@ class BaseRepository(Generic[T]):
             self.session.commit()
             return True
         return False
+    
+    def update(self, entity_id: int | str, instance: T) -> Optional[T]:
+        """
+        Locates an existing record by ID and updates its attributes dynamically.
+        """
+        existing_instance = self.get_one(entity_id)
+        if not existing_instance:
+            return None
+
+        # Dynamically copy all non-SQLAlchemy internal properties from the incoming instance
+        for key, value in vars(instance).items():
+            if not key.startswith('_sa_instance_state'):
+                setattr(existing_instance, key, value)
+
+        self.session.commit()
+        self.session.refresh(existing_instance)
+        return existing_instance
