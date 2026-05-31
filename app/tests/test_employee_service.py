@@ -1,11 +1,14 @@
 import pytest
 from unittest.mock import MagicMock
 
-from app.application.services.employee_service import EmployeeService
-from app.domain.entities.employee import Employee
-from app.models.employee_model import EmployeeModel
-from app.infrastructure.repositories.interfaces.employee_repository_interface import IEmployeeRepository
-from app.infrastructure.mappers.employee_mapper import EmployeeMapper
+# Fixed: This line was already updated correctly
+from application.services.employee_service import EmployeeService
+
+# Fixed: Removed the 'app.' prefix from all structural imports below
+from domain.entities.employee import Employee
+from models.employee_model import EmployeeModel
+from infrastructure.repositories.interfaces.employee_repository_interface import IEmployeeRepository
+from infrastructure.mappers.employee_mapper import EmployeeMapper
 
 
 @pytest.fixture
