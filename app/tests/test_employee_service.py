@@ -27,8 +27,14 @@ def employee_service(mock_repository):
 
 @pytest.fixture
 def sample_employee_model():
-    """Provides a mock EmployeeModel database object."""
-    model = MagicMock(spec=EmployeeModel)
+    """Provides a mock EmployeeModel database object safely without triggering Flask contexts."""
+    class DummyEmployeeModel:
+        id = None
+        name = None
+        email = None
+        is_active = None
+
+    model = MagicMock(spec=DummyEmployeeModel)
     return model
 
 
